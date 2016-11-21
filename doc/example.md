@@ -30,7 +30,7 @@
 
 <script>
 
-     ksplayer.options.flash.swf = "http://example.com/path/to/video-js.swf"
+     ksplayer.options.flash.swf = "http://example.com/path/to/ksplayer.swf"
 
 </script>
 
