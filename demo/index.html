@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ksplayer demo</title>
+    <link rel="stylesheet" href="style/ksplayer.min.css">
+   
+    <style>
+        body {
+            color: #868688;
+            background-color: #FAFCFF;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 1em;
+        }
+        h1{
+            margin: 20px 0 10px;
+            font-weight: 500;
+            line-height: 1.1;
+        }
+        .video-container {
+            margin-bottom: 20px;
+            width: 98%;
+            max-width: 800px;
+            min-height :150px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .video-js {
+            margin: 0 auto;
+            width: 96%;
+            height: 100%;
+            display:block;
+        }
+        .control-bar {
+            margin-top: 20px;
+        }
+        .control-bar input {
+            border: 1px solid #ccc;
+        }
+        .control-bar button{
+            padding:8px 30px;
+            background-color: cornflowerblue;
+            outline:none;
+            border: none;
+            color: #ffffff;
+            font-weight: 500;
+        }
+        .control-bar button:hover {
+            cursor: pointer;
+        }
+        .control-bar input {
+            width: 75%;
+            line-height: 2.5;
+            padding: 0 10px;
+            margin-bottom: 10px;
+        }
+        .video-js .wider-style{
+            width: 150px;
+        }
+
+    </style>
+
+</head>
+<body>
+<h1>KSPlayer Demo</h1>
+<p>KSPlayer让您可以在所有主要的桌面和移动端浏览器上播放mp4，m3u8格式的点播视频和rtmp、hls、http-flv协议的直播视频</p>
+<div class="video-container">
+    <!--two choices for style:  vjs-default-skin or vjs-sublime-skin-->
+    <video id=example-video  class="video-js vjs-big-play-centered" controls preload="auto" width="640" height="264">
+        <source src="http://vjs.zencdn.net/v/oceans.mp4"
+                type="video/mp4">
+    </video>
+</div>
+<div class="control-bar">
+    <input id="video-url" placeholder="输入视频URL"> <button id="change-video">加载</button>
+</div>
+
+
+<script src="js/ksplayer.min.js"></script>
+
+<script>
+    ksplayer.options.flash.swf = "ksplayer.swf";
+</script>
+
+<script>
+    var $ = document.querySelectorAll.bind(document);
+
+    var player = ksplayer('example-video',{
+        language: 'zh-CN',
+        responsive: true,
+        autoHeight: true,
+        fluid: true,  //响应式
+        bigPlayButton: false,
+        autoplay:false
+//        "playbackRates": [1, 1.5, 2]
+    });
+
+
+    var bigBtn = player.addChild("BigPlayButton");
+    //player.removeChild("BigPlayButton");
+    var el = bigBtn.el();
+    player.ready(function() {
+        bigBtn.addClass('wider-style');
+        setTimeout(function() {
+            console.log('lengthOfVideo: ' + player.duration());
+        },1);
+
+        $("#change-video")[0].addEventListener('click', function(){
+            var newUrl = $('#video-url')[0].value.trim();
+            if(newUrl.indexOf('rtmp') == 0) {
+                player.src({"type":"rtmp/flv", "src":newUrl });
+                player.play();
+            }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.mp4')) {
+                player.src({"type":"video/mp4", "src":newUrl });
+                player.aspectRatio("16:9");
+                console.log('aspect ratio:' + player.aspectRatio());
+                player.aspectRatio();
+                player.play();
+                console.log('aspectRatio: ' + player.aspectRatio());
+            }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.m3u8'))  {
+                player.src({"type":"application/x-mpegURL", "src":newUrl });
+                player.play();
+            }else if(newUrl.indexOf('http') == 0 && newUrl.indexOf('.flv') != -1) {
+                player.src({"type": "video/x-flv", "src": newUrl});
+                player.play();
+            }
+            else{
+                alert('请填写正确的url');
+            }
+        });
+    });
+
+    var player2 = ksplayer('example-video');
+    console.log(player == player2);
+
+    player.on("ready", function(event) {
+        console.log(event);
+    });
+    player.on("ended",function(event, data) {
+        console.log(event);
+    });
+
+    player.on("pause",function(event, data) {
+        console.log(event);
+    });
+
+    player.on("play",function(event, data) {
+        console.log(event);
+    });
+
+    player.on("playing",function(event, data) {
+        console.log(event);
+    });
+
+    player.on("seeked",function(event, data) {
+        console.log(event);
+    });
+
+    player.on("seeking",function(event, data) {
+        console.log(event);
+    });
+
+    player.on("loadstart",function(event, data) {
+        console.log(event);
+    });
+
+
+    player.on("loadeddata", function(event) {
+        console.log( event );
+    });
+
+    player.on("loadedmetadata", function(event) {
+        console.log( event );
+        console.log("duration:" + player.duration());
+    });
+
+
+    player.on("useractive", function(event) {
+        console.log( event );
+    });
+
+    player.on("userinactive", function(event) {
+        console.log( event );
+    });
+
+    player.on("volumechange", function(event) {
+        console.log( event );
+    });
+
+    player.on("durationchange", function(event) {
+        console.log(event);
+    });
+
+    player.on("error", function(event) {
+       console.log(event);
+    });
+
+</script>
+</body>
+</html>
