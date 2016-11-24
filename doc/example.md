@@ -13,9 +13,9 @@
 
 ```js
 
-<link href="//ksplayer.ks3-cn-beijing.ksyun.com/v1/ksplayer.min.css" rel="stylesheet">
+<link href="//ksplayer.video.ksyun.com/v1/ksplayer.min.css" rel="stylesheet">
 
-<script src="//ksplayer.ks3-cn-beijing.ksyun.com/v1/ksplayer.min.js"></script>
+<script src="//ksplayer.video.ksyun.com/v1/ksplayer.min.js"></script>
 
 ```
 

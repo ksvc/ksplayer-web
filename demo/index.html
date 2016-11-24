@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ksplayer demo</title>
-    <link rel="stylesheet" href="https://ks3-cn-beijing.ksyun.com/ksplayer/v1/ksplayer.min.css">
-   
+    <link rel="stylesheet" href="style/ksplayer.min.css">
+
     <style>
         body {
             color: #868688;
@@ -77,12 +77,11 @@
     <input id="video-url" placeholder="输入视频URL"> <button id="change-video">加载</button>
 </div>
 
+<script src="js/ksplayer.min.js"></script>
 
-<script src="https://ks3-cn-beijing.ksyun.com/ksplayer/v1/ksplayer.min.js"></script>
-
-<!--<script>
-    ksplayer.options.flash.swf = "ksplayer.swf";
-</script> -->
+<!--<script>-->
+    <!--ksplayer.options.flash.swf = "ksplayer.swf";-->
+<!--</script>-->
 
 <script>
     var $ = document.querySelectorAll.bind(document);
@@ -106,6 +105,16 @@
         setTimeout(function() {
             console.log('lengthOfVideo: ' + player.duration());
         },1);
+
+      /*  if(player.currentSrc() == 'http://vjs.zencdn.net/v/oceans.mp4') {
+            var trackElement = player.addRemoteTextTrack({
+                kind: 'Captions',
+                label:'打开字幕',
+                language: 'zh',
+                src: './captions.vtt',
+                default: true
+            });
+        }*/
 
         $("#change-video")[0].addEventListener('click', function(){
             var newUrl = $('#video-url')[0].value.trim();
