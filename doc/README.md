@@ -22,5 +22,5 @@ KSPlayer点播视频播放格式支持：
 | MP4 | 支持 | 支持 |
 | FLV | 支持 | 不支持 |
 
-
+`说明:` HLS(m3u8)资源需要允许GET跨域请求（携带[CORS headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS)）
 
