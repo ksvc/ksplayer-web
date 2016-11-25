@@ -48,7 +48,7 @@
     </p> 
 </video>
 ```
-ksplayer提供了两套皮肤，默认样式和高级样式，可以分别通过在class属性中增加`js-default-skin`和`js-sublime-skin`类更换播放器皮肤。另外通过添加额外的`vjs-big-play-centered`类可以使播放按钮居中。
+ksplayer提供了两套皮肤，默认样式和高级样式，可以分别通过在class属性中增加`js-default-skin`,`js-sublime-skin`和`mobile-first-skin`类更换播放器皮肤。另外通过添加额外的`vjs-big-play-centered`类可以使播放按钮居中。
 
 ## Step 3: 初始化设置播放器
 ---
