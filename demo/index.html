@@ -78,12 +78,12 @@
     <input id="video-url" placeholder="输入视频URL"> <button id="change-video">加载</button>
 </div>
 
-<!--<script src="js/ksplayer.min.js"></script>-->
-<script src="//ksplayer.video.ksyun.com/v1/ksplayer.min.js"></script>
+<script src="js/ksplayer.min.js"></script>
+<script>
+    ksplayer.options.flash.swf = "ksplayer.swf";
+</script>
 
-<!--<script>-->
-    <!--ksplayer.options.flash.swf = "ksplayer.swf";-->
-<!--</script>-->
+<!-- <script src="//ksplayer.video.ksyun.com/v1/ksplayer.min.js"></script> -->
 
 <script>
     var $ = document.querySelectorAll.bind(document);

@@ -22,7 +22,8 @@ console.log(player == player2);  //true
 |[aspectRatio( [ratio] )](#aspectratio-ratio-)|获取/设置播放器宽高比|[autoplay( )](#autoplay-)|获取播放器的autoplay属性|
 |[addChild( child )](#addchild-child-)|添加子组件|[addClass( classToAdd )](#addclass-classtoadd-)|向组件添加CSS|
 |[buffered( )](#buffered-)|获取缓存信息|[bufferedEnd( )](#bufferedend-)|获取缓存结束时间|
-|[bufferedPercent( )](#bufferedpercent-)|获取缓存数据占比|[canPlayType( type )](#canplaytype-type-)|可播放的mime类型检查|
+|[bufferedPercent( )](#bufferedpercent-)|获取缓存数据占比 |[bufferTimeMax( [seconds] )](#buffertimemax-seconds-)|获取最大缓冲时长|
+|[canPlayType( type )](#canplaytype-type-)|可播放的mime类型检查|
 |[controls( [bool] )](#controls-bool-])|获取/设置控制栏是否显示|[currentTime( [seconds] )](#currenttime-seconds-)|获取或设置当前时间|
 |[currentSrc( )](#currentsrc-)|获取视频源URL|[currentType( )](#currenttype-)|获取视频源类型|
 |[children( )](#children-)|获取子组件的数组|[dimension( dimension, [value] )](#dimension-dimension-value-)|获取/设置播放器的尺寸|
@@ -114,6 +115,19 @@ var bufferedEnd = player.bufferedEnd();
 var howMuchIsDownloaded = player.bufferedPercent();
 
 ```
+
+### bufferTimeMax( [seconds] )
+获取或设置最大缓冲时长（单位为秒）
+
+|参数名 |类型|是否必须|描述|
+|---|---|---|---|
+|seconds|Number&#124;String|否|要设置的最大缓冲时长|
+
+```js
+player.bufferTimeMax(10);
+```
+
+
 
 ### canPlayType( type )
 检查播放器是否可以播放给定的mime类型的视频
