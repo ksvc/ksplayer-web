@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ksplayer demo</title>
-    <!--<link rel="stylesheet" href="style/ksplayer.min.css">-->
-    <link href="//ksplayer.video.ksyun.com/v1/ksplayer.min.css" rel="stylesheet">
+    <meta content="直播SDK，点播SDK，金山云，视频云，视频播放，KLS，KVS，Kingsoft，KingCloud, Playback, KSPlayer, ksplayer" name="keywords">
+    <meta content="KSPlayer是金山云的Web端视频播放器，该播放器Web SDK让您可以在主流的桌面和移动端浏览器上播放rtmp、hls、http-flv协议的直播视频以及mp4、m3u8格式的点播视频。KSPlayer基于video.js框架开发，提供稳定和易于使用的API。本SDK隶属于金山云视频云解决方案" name="description">
+    <link rel="stylesheet" href="//ksplayer.video.ksyun.com/v1/ksplayer.min.css">
 
     <style>
         body {
@@ -69,7 +70,7 @@
 <p>KSPlayer让您可以在所有主要的桌面和移动端浏览器上播放mp4，m3u8格式的点播视频和rtmp、hls、http-flv协议的直播视频</p>
 <div class="video-container">
     <!--two choices for style:  vjs-default-skin or vjs-sublime-skin-->
-    <video id=example-video  class="video-js mobile-first-skin" controls preload="auto" width="640" height="264">
+    <video id=example-video  class="video-js mobile-first-skin" controls preload="auto" width="360" height="640"  webkit-playsinline playsinline x5-video-player-type="h5"  x5-video-player-fullscreen="true">
         <source src="http://vjs.zencdn.net/v/oceans.mp4"
                 type="video/mp4">
     </video>
@@ -90,8 +91,8 @@
 
     var player = ksplayer('example-video',{
         language: 'zh-CN',
-        autoHeight: true,
-        autoWidth: true,
+//        autoHeight: true,
+//        autoWidth: true,
         fluid: true,  //响应式
         bigPlayButton: false,
         autoplay:false,
@@ -114,6 +115,15 @@
             console.log('lengthOfVideo: ' + player.duration());
         },1);
 
+      /*  if(player.currentSrc() == 'http://vjs.zencdn.net/v/oceans.mp4') {
+            var trackElement = player.addRemoteTextTrack({
+                kind: 'Captions',
+                label:'打开字幕',
+                language: 'zh',
+                src: './captions.vtt',
+                default: true
+            });
+        }*/
 
         $("#change-video")[0].addEventListener('click', function(){
             var newUrl = $('#video-url')[0].value.trim();
@@ -128,6 +138,7 @@
                 player.play();
                 console.log('aspectRatio: ' + player.aspectRatio());
             }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.m3u8'))  {
+                resizePlayer('example-video');
                 player.src({"type":"application/x-mpegURL", "src":newUrl });
                 player.play();
             }else if(newUrl.indexOf('http') == 0 && newUrl.indexOf('.flv') != -1) {
@@ -205,6 +216,15 @@
        console.log(event);
     });
 
+function resizePlayer(domId) {
+    var sWidth = 9;
+    var sHeight = 16;
+    var width = window.innerWidth;
+    var height = width * sHeight / sWidth;
+    var $video = document.getElementById(domId);
+    $video.style.width = width + 'px';
+    $video.style.height = height + 'px';
+}
 
 </script>
 </body>

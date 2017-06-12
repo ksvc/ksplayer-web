@@ -307,7 +307,7 @@ player.muted(true);
 - NETWORK_NO_SOURCE（数字 3）: 播放器准备就绪，但没有找到资源。
 
 ```js
-player.networState();
+player.networkState();
 ```
 
 ### pause( )
