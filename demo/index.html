@@ -6,7 +6,7 @@
     <title>ksplayer demo</title>
     <meta content="直播SDK，点播SDK，金山云，视频云，视频播放，KLS，KVS，Kingsoft，KingCloud, Playback, KSPlayer, ksplayer" name="keywords">
     <meta content="KSPlayer是金山云的Web端视频播放器，该播放器Web SDK让您可以在主流的桌面和移动端浏览器上播放rtmp、hls、http-flv协议的直播视频以及mp4、m3u8格式的点播视频。KSPlayer基于video.js框架开发，提供稳定和易于使用的API。本SDK隶属于金山云视频云解决方案" name="description">
-    <link rel="stylesheet" href="//ksplayer.video.ksyun.com/v1/ksplayer.min.css">
+    <link rel="stylesheet" href="./style/ksplayer.min.css">
 
     <style>
         body {
@@ -15,6 +15,7 @@
             padding: 40px 0;
             text-align: center;
             font-size: 1em;
+            margin: 0;
         }
         h1{
             margin: 20px 0 10px;
@@ -23,14 +24,14 @@
         }
         .video-container {
             margin-bottom: 20px;
-            width: 98%;
+            width: 100%;
             max-width: 800px;
             min-height :150px;
             margin-left: auto;
             margin-right: auto;
         }
         .video-js {
-            margin: 0 auto;
+            margin: 0;
             width: 96%;
             height: 100%;
             display:block;
@@ -55,6 +56,7 @@
         .control-bar input {
             width: 75%;
             line-height: 2.5;
+            height: 34px;
             padding: 0 10px;
             margin-bottom: 10px;
         }
@@ -79,12 +81,12 @@
     <input id="video-url" placeholder="输入视频URL"> <button id="change-video">加载</button>
 </div>
 
+
 <script src="js/ksplayer.min.js"></script>
+
 <script>
     ksplayer.options.flash.swf = "ksplayer.swf";
 </script>
-
-<!-- <script src="//ksplayer.video.ksyun.com/v1/ksplayer.min.js"></script> -->
 
 <script>
     var $ = document.querySelectorAll.bind(document);
@@ -94,7 +96,7 @@
 //        autoHeight: true,
 //        autoWidth: true,
         fluid: true,  //响应式
-        bigPlayButton: false,
+        bigPlayButton: true,
         autoplay:false,
         controlBar: {
             volumeMenuButton: {
@@ -106,24 +108,10 @@
     });
 
 
-    var bigBtn = player.addChild("BigPlayButton");
-    //player.removeChild("BigPlayButton");
-
     player.ready(function() {
-        //bigBtn.addClass('wider-style');
         setTimeout(function() {
             console.log('lengthOfVideo: ' + player.duration());
         },1);
-
-      /*  if(player.currentSrc() == 'http://vjs.zencdn.net/v/oceans.mp4') {
-            var trackElement = player.addRemoteTextTrack({
-                kind: 'Captions',
-                label:'打开字幕',
-                language: 'zh',
-                src: './captions.vtt',
-                default: true
-            });
-        }*/
 
         $("#change-video")[0].addEventListener('click', function(){
             var newUrl = $('#video-url')[0].value.trim();
@@ -138,7 +126,7 @@
                 player.play();
                 console.log('aspectRatio: ' + player.aspectRatio());
             }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.m3u8'))  {
-                resizePlayer('example-video');
+                resizePlayer('example-video', 200);
                 player.src({"type":"application/x-mpegURL", "src":newUrl });
                 player.play();
             }else if(newUrl.indexOf('http') == 0 && newUrl.indexOf('.flv') != -1) {
@@ -216,14 +204,20 @@
        console.log(event);
     });
 
-function resizePlayer(domId) {
+function resizePlayer(domId, heightLimit) {
     var sWidth = 9;
     var sHeight = 16;
     var width = window.innerWidth;
     var height = width * sHeight / sWidth;
     var $video = document.getElementById(domId);
+
     $video.style.width = width + 'px';
-    $video.style.height = height + 'px';
+    $video.style.height = heightLimit + 'px';
+    $video.style.overflow = 'hidden';  //让高度和宽度都撑满
+
+    var $videoTag = document.getElementById(domId + '_html5_api');
+    $videoTag.style.width = width + 'px';
+    $videoTag.style.height = height + 'px';
 }
 
 </script>
