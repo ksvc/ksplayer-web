@@ -24,7 +24,7 @@
 您也可以下载ksplayer.js及其样式文件到您自己的服务器上。PC端请使用IE10以上版本的现代浏览器。
 ```js
 
-<link href="//example.com/path/to/video-js.min.css" rel="stylesheet">
+<link href="//example.com/path/to/ksplayer.min.css" rel="stylesheet">
 
 <script src="//example.com/path/to/ksplayer.min.js"></script>
 
@@ -68,4 +68,6 @@ ksplayer函数的第一个参数是video标签的ID。
 该函数的返回一个播放器对象，该对象上的[设置方法](api.md)和[事件](event.md)参见API总览中相应部分。
 
 
-**注意事项：**播放页面需要挂ip或域名访问，如若直接打开本地静态页面将无法播放直播视频。
+**注意事项：** 播放页面需要挂ip或域名访问，如若直接打开本地静态页面将无法播放直播视频。
+
+另外可以通过全局变量window.hasFlash判断浏览器的flash插件是否可用,给用户提示,参见`demo/index.html`。
