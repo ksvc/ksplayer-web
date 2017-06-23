@@ -33,3 +33,9 @@ Android上微信使用的是自带的渲染引擎 TBS。新版的TBS 内核（>=
 
 `小提示`: 如果使用fluid选项(自适应)初始化ksplayer, 之后再通过width()和height()方法设置播放器宽高是不起作用的。
 可以直接设置播放器的video标签的样式来动态控制播放器的实际宽高(如上)。
+
+## 为什么安装了Flash插件还是无法播放播放rtmp和flv直播流?
+
+Flash插件可能被禁用了。新版本的chrome(56+)默认不开启Flash插件,需要手动开启。可以在浏览器的地址栏输入
+chrome://settings/content/flash ,设置`允许网站运行flash`, 地址栏输入 chrome://flags/#run-all-flash-in-allow-mode 设置为
+Enable(启用), 重启浏览器。
