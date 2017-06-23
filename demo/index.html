@@ -116,22 +116,26 @@
         $("#change-video")[0].addEventListener('click', function(){
             var newUrl = $('#video-url')[0].value.trim();
             if(newUrl.indexOf('rtmp') == 0) {
-                player.src({"type":"rtmp/flv", "src":newUrl });
-                player.play();
+                if(window.hasFlash) {
+                    player.src({"type":"rtmp/flv", "src":newUrl });
+                    player.play();
+                }else {
+                    alert('您的浏览器没有安装flash插件或flash被禁用');
+                }
             }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.mp4')) {
                 player.src({"type":"video/mp4", "src":newUrl });
-                player.aspectRatio("16:9");
-                console.log('aspect ratio:' + player.aspectRatio());
-                player.aspectRatio();
                 player.play();
-                console.log('aspectRatio: ' + player.aspectRatio());
             }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.m3u8'))  {
-                resizePlayer('example-video', 200);
+                //resizePlayer('example-video', 200);
                 player.src({"type":"application/x-mpegURL", "src":newUrl });
                 player.play();
             }else if(newUrl.indexOf('http') == 0 && newUrl.indexOf('.flv') != -1) {
-                player.src({"type": "video/x-flv", "src": newUrl});
-                player.play();
+                if(window.hasFlash) {
+                    player.src({"type": "video/x-flv", "src": newUrl});
+                    player.play();
+                }else {
+                    alert('您的浏览器没有安装flash插件或flash被禁用');
+                }
             }
             else{
                 alert('请填写正确的url');
@@ -139,8 +143,8 @@
         });
     });
 
-    var player2 = ksplayer('example-video');
-    console.log(player == player2);
+    //var player2 = ksplayer('example-video');
+    //console.log(player == player2);
 
     player.on("ready", function(event) {
         console.log(event);
