@@ -37,5 +37,5 @@ Android上微信使用的是自带的渲染引擎 TBS。新版的TBS 内核（>=
 ## 为什么安装了Flash插件还是无法播放播放rtmp和flv直播流?
 
 Flash插件可能被禁用了。新版本的chrome(56+)默认不开启Flash插件,需要手动开启。可以在浏览器的地址栏输入
-chrome://settings/content/flash ,设置`允许网站运行flash`, 地址栏输入 chrome://flags/#run-all-flash-in-allow-mode 设置为
+chrome://settings/content/flash ,开启`允许网站运行flash`并关闭`先询问`, 地址栏输入 chrome://flags/#run-all-flash-in-allow-mode 设置为
 Enable(启用), 重启浏览器。
