@@ -6,7 +6,7 @@
     <title>ksplayer demo</title>
     <meta content="直播SDK，点播SDK，金山云，视频云，视频播放，KLS，KVS，Kingsoft，KingCloud, Playback, KSPlayer, ksplayer" name="keywords">
     <meta content="KSPlayer是金山云的Web端视频播放器，该播放器Web SDK让您可以在主流的桌面和移动端浏览器上播放rtmp、hls、http-flv协议的直播视频以及mp4、m3u8格式的点播视频。KSPlayer基于video.js框架开发，提供稳定和易于使用的API。本SDK隶属于金山云视频云解决方案" name="description">
-    <link rel="stylesheet" href="./style/ksplayer.min.css">
+    <link rel="stylesheet" href="style/ksplayer.min.css">
 
     <style>
         body {
@@ -72,9 +72,10 @@
 <p>KSPlayer让您可以在所有主要的桌面和移动端浏览器上播放mp4，m3u8格式的点播视频和rtmp、hls、http-flv协议的直播视频</p>
 <div class="video-container">
     <!--two choices for style:  vjs-default-skin or vjs-sublime-skin-->
-    <video id=example-video  class="video-js mobile-first-skin" controls preload="auto" width="360" height="640">
-        <source src="https://vjs.zencdn.net/v/oceans.mp4"
-                type="video/mp4">
+    <video id=example-video  class="video-js mobile-first-skin vjs-nofull" controls
+           preload="auto" width="360" height="640"
+           poster="https://www.ksyun.com/assets/img/static/logo.png"
+           >
     </video>
 </div>
 <div class="control-bar">
@@ -82,28 +83,34 @@
 </div>
 
 
+<!--[if lt IE 9]>
+<script src="js/ksplayer-ie8.min.js"></script>
+<![endif]-->
+
 <script src="js/ksplayer.min.js"></script>
+
 
 <script>
     ksplayer.options.flash.swf = "ksplayer.swf";
 </script>
 
 <script>
-    var $ = document.querySelectorAll.bind(document);
-
     var player = ksplayer('example-video',{
         language: 'zh-CN',
-//        autoHeight: true,
-//        autoWidth: true,
         fluid: true,  //响应式
         bigPlayButton: true,
-        autoplay:false,
+        autoplay: false,
+        sources: [{
+            src: 'http://vjs.zencdn.net/v/oceans.mp4',
+            type: 'video/mp4'
+        }],
         controlBar: {
             volumeMenuButton: {
                 inline: false,
                 vertical: true
             }
-        }
+        },
+        techOrder: [ "html5", "flash"]
 //        "playbackRates": [1, 1.5, 2]
     });
 
@@ -113,8 +120,8 @@
             console.log('lengthOfVideo: ' + player.duration());
         },1);
 
-        $("#change-video")[0].addEventListener('click', function(){
-            var newUrl = $('#video-url')[0].value.trim();
+        document.getElementById("change-video").onclick = function(){
+            var newUrl = document.getElementById('video-url').value.trim();
             if(newUrl.indexOf('rtmp') == 0) {
                 if(window.hasFlash) {
                     player.src({"type":"rtmp/flv", "src":newUrl });
@@ -123,11 +130,11 @@
                     alert('您的浏览器没有安装flash插件或flash被禁用');
                 }
             }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.mp4')) {
-                player.src({"type":"video/mp4", "src":newUrl });
-                player.play();
-            }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.m3u8'))  {
-                //resizePlayer('example-video', 200);
-                player.src({"type":"application/x-mpegURL", "src":newUrl });
+                if(window.hasFlash) {
+                    player.src({"type": "video/x-flv", "src": newUrl});
+                }else {
+                    player.src({"type": "video/mp4", "src": newUrl});
+                }
                 player.play();
             }else if(newUrl.indexOf('http') == 0 && newUrl.indexOf('.flv') != -1) {
                 if(window.hasFlash) {
@@ -140,7 +147,7 @@
             else{
                 alert('请填写正确的url');
             }
-        });
+        };
     });
 
     //var player2 = ksplayer('example-video');

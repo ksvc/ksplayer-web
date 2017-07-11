@@ -47,3 +47,9 @@ Android上微信使用的是自带的渲染引擎 TBS。新版的TBS 内核（>=
 Flash插件可能被禁用了。新版本的chrome(56+)默认不开启Flash插件,需要手动开启。可以在浏览器的地址栏输入
 chrome://settings/content/flash ,开启`允许网站运行flash`并关闭`先询问`, 地址栏输入 chrome://flags/#run-all-flash-in-allow-mode 设置为
 Enable(启用), 重启浏览器。
+
+## 如何支持IE8浏览器?
+
+请参照`ie8`分支中的demo。IE8不支持hls格式的视频。
+
+*注:* ksplayer在IE8下采用flash播放mp4格式视频, 只支持H264视频编码和AAC音频编码,mp3编码格式的音频无法播放。
