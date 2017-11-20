@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ksplayer demo</title>
+    <meta content="直播SDK，点播SDK，金山云，视频云，视频播放，KLS，KVS，Kingsoft，KingCloud, Playback, KSPlayer, ksplayer" name="keywords">
+    <meta content="KSPlayer是金山云的Web端视频播放器，该播放器Web SDK让您可以在主流的桌面和移动端浏览器上播放rtmp、hls、http-flv协议的直播视频以及mp4、m3u8格式的点播视频。KSPlayer基于video.js框架开发，提供稳定和易于使用的API。本SDK隶属于金山云视频云解决方案" name="description">
+    <link rel="stylesheet" href="./style/ksplayer.min.css">
+
+    <style>
+        body {
+            color: #868688;
+            background-color: #FAFCFF;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 1em;
+            margin: 0;
+        }
+        h1{
+            margin: 20px 0 10px;
+            font-weight: 500;
+            line-height: 1.1;
+        }
+        .video-container, #video-container {
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 800px;
+            min-height :150px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .video-js {
+            margin: 0;
+            width: 96%;
+            height: 100%;
+            display:block;
+        }
+        .control-bar {
+            margin-top: 20px;
+        }
+        .control-bar input {
+            border: 1px solid #ccc;
+        }
+        .control-bar button{
+            padding:8px 30px;
+            background-color: cornflowerblue;
+            outline:none;
+            border: none;
+            color: #ffffff;
+            font-weight: 500;
+        }
+        .control-bar button:hover {
+            cursor: pointer;
+        }
+        .control-bar input {
+            width: 75%;
+            line-height: 2.5;
+            height: 34px;
+            padding: 0 10px;
+            margin-bottom: 10px;
+        }
+        .video-js .wider-style{
+            width: 150px;
+        }
+
+    </style>
+
+</head>
+<body>
+<h1>KSPlayer Demo</h1>
+<p>KSPlayer让您可以在所有主要的桌面和移动端浏览器上播放mp4，m3u8格式的点播视频和rtmp、hls、http-flv协议的直播视频</p>
+<div id="video-container"></div>
+<div class="control-bar">
+    <input id="video-url" placeholder="输入视频URL"> <button id="change-video">加载</button>
+</div>
+
+<script src="lib/react.js"></script>
+<script src="lib/react-dom.js"></script>
+<script src="lib/browser.min.js"></script>
+
+<script src="js/ksplayer.min.js"></script>
+
+
+<script type="text/babel">
+
+    ksplayer.options.flash.swf = "ksplayer.swf";
+
+    var $ = document.querySelectorAll.bind(document);
+
+    var VideoPlayer = React.createClass({
+
+       componentDidMount() {
+            this.player = ksplayer(this.props.videoId, this.props, function onPlayerReady() {
+
+                setTimeout(function() {
+                    console.log('lengthOfVideo: ' + this.player.duration());
+                }.bind(this), 1);
+
+                $("#change-video")[0].addEventListener('click', function(){
+                    var newUrl = $('#video-url')[0].value.trim();
+                    if(newUrl.indexOf('rtmp') == 0) {
+                        if(window.hasFlash) {
+                            this.player.src({"type":"rtmp/flv", "src":newUrl });
+                            this.player.play();
+                        }else {
+                            alert('您的浏览器没有安装flash插件或flash被禁用');
+                        }
+                    }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.mp4')) {
+                        this.player.src({"type":"video/mp4", "src":newUrl });
+                        this.player.play();
+                    }else if(newUrl.indexOf('http') == 0 && newUrl.endWith('.m3u8'))  {
+                        this.player.src({"type":"application/x-mpegURL", "src":newUrl });
+                        this.player.play();
+                    }else if(newUrl.indexOf('http') == 0 && newUrl.indexOf('.flv') != -1) {
+                        if(window.hasFlash) {
+                            this.player.src({"type": "video/x-flv", "src": newUrl});
+                            this.player.play();
+                        }else {
+                            alert('您的浏览器没有安装flash插件或flash被禁用');
+                        }
+                    }
+                    else{
+                        alert('请填写正确的url');
+                    }
+                }.bind(this));
+            }.bind(this));
+
+           this.player.on("ready", function(event) {
+               console.log(event);
+           });
+           this.player.on("ended",function(event, data) {
+               console.log(event);
+           });
+
+           this.player.on("pause",function(event, data) {
+               console.log(event);
+           });
+
+           this.player.on("play",function(event, data) {
+               console.log(event);
+           });
+
+           this.player.on("playing",function(event, data) {
+               console.log(event);
+           });
+
+           this.player.on("seeked",function(event, data) {
+               console.log(event);
+           });
+
+           this.player.on("seeking",function(event, data) {
+               console.log(event);
+           });
+
+           this.player.on("loadstart",function(event, data) {
+               console.log(event);
+           });
+
+
+           this.player.on("loadeddata", function(event) {
+               console.log( event );
+           });
+
+           this.player.on("loadedmetadata", function(event) {
+               console.log( event );
+               console.log("duration:" +  this.player.duration());
+           }.bind(this));
+
+
+           this.player.on("useractive", function(event) {
+               //console.log( event );
+           });
+
+           this.player.on("userinactive", function(event) {
+               //console.log( event );
+           });
+
+           this.player.on("volumechange", function(event) {
+               console.log( event );
+           });
+
+           this.player.on("durationchange", function(event) {
+               console.log(event);
+           });
+
+           this.player.on("error", function(event) {
+               console.log(event);
+           });
+
+       },
+
+        render() {
+           return (
+                   <div data-vjs-player>
+                       <video id={this.props.videoId}  className="video-js mobile-first-skin" controls preload="auto" width="360" height="640">
+                           <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"/>
+                       </video>
+                   </div>
+           )
+        },
+
+        componentWillUnmount() {
+            if(this.player) {
+                this.player.dispose();
+            }
+        }
+    });
+
+    var videoJsOptions = {
+        videoId: 'example-video',
+        language: 'zh-CN',
+        fluid: true,  //响应式
+        bigPlayButton: true,
+        autoplay:false,
+        controlBar: {
+            volumeMenuButton: {
+                inline: false,
+                vertical: true
+            }
+        },
+        "playbackRates": [1, 1.5, 2]
+    };
+
+
+    ReactDOM.render(
+            <VideoPlayer {...videoJsOptions}/>,
+            document.getElementById('video-container')
+    );
+
+</script>
+</body>
+</html>

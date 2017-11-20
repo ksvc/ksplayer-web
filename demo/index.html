@@ -6,6 +6,7 @@
     <title>ksplayer demo</title>
     <meta content="直播SDK，点播SDK，金山云，视频云，视频播放，KLS，KVS，Kingsoft，KingCloud, Playback, KSPlayer, ksplayer" name="keywords">
     <meta content="KSPlayer是金山云的Web端视频播放器，该播放器Web SDK让您可以在主流的桌面和移动端浏览器上播放rtmp、hls、http-flv协议的直播视频以及mp4、m3u8格式的点播视频。KSPlayer基于video.js框架开发，提供稳定和易于使用的API。本SDK隶属于金山云视频云解决方案" name="description">
+    <link rel="shortcut icon" href="https://www.ksyun.com/assets/img/static/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./style/ksplayer.min.css">
 
     <style>
@@ -85,10 +86,9 @@
 <script src="js/ksplayer.min.js"></script>
 
 <script>
-    ksplayer.options.flash.swf = "ksplayer.swf";
-</script>
 
-<script>
+    ksplayer.options.flash.swf = "ksplayer.swf";
+
     var $ = document.querySelectorAll.bind(document);
 
     var player = ksplayer('example-video',{

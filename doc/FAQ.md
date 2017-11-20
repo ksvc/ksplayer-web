@@ -47,3 +47,7 @@ Android上微信使用的是自带的渲染引擎 TBS。新版的TBS 内核（>=
 Flash插件可能被禁用了。新版本的chrome(56+)默认不开启Flash插件,需要手动开启。可以在浏览器的地址栏输入
 chrome://settings/content/flash ,开启`允许网站运行flash`并关闭`先询问`, 地址栏输入 chrome://flags/#run-all-flash-in-allow-mode 设置为
 Enable(启用), 重启浏览器。对于chrome 62+，默认也不开启flash，需要点地址栏左边的“i”图标或锁形图标，再把flash改为“允许”。
+
+## 如何集成到React项目中?
+
+参见demo/react.html中示例
