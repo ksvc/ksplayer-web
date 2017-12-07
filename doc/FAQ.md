@@ -48,6 +48,33 @@ Flash插件可能被禁用了。新版本的chrome(56+)默认不开启Flash插�
 chrome://settings/content/flash ,开启`允许网站运行flash`并关闭`先询问`, 地址栏输入 chrome://flags/#run-all-flash-in-allow-mode 设置为
 Enable(启用), 重启浏览器。对于chrome 62+，默认也不开启flash，需要点地址栏左边的“i”图标或锁形图标，再把flash改为“允许”。
 
-## 如何集成到React项目中?
 
-参见demo/react.html中示例
+## 视频播放如何截图？
+
+可以通过ksplayer实例对象上的snapshot方法实现视频帧截取。具体方法如下：
+
+1.放置一个img标签占位符用于展示截图
+
+```
+<div><img id="snapshot" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="/></div>
+```
+
+2.给video标签增加跨域属性，如
+
+
+```
+ <video id=example-video crossorigin="anonymous" class="video-js mobile-first-skin" controls preload="auto" width="360" height="640">
+```
+
+
+3.初始化截图功能插件，并调用截图方法
+
+```
+    //视频帧截图功能初始化(设置img标签DOM节点的Id)，只对H5 video标签播放有效(IE9+)
+    player.Snapshot({imgDOMId: 'snapshot'});
+
+    //在需要截图的时候调用snapshot方法截图，图片会插入指定的img标签处
+    player.snapshot();
+```
+
+**说明:** 只适用于IE9+和其他现代浏览器的H5播放（mp4，hls）

@@ -65,6 +65,10 @@
             width: 150px;
         }
 
+        #snapshot{
+            width: 360px;
+            margin: 0 auto;
+        }
     </style>
 
 </head>
@@ -73,15 +77,15 @@
 <p>KSPlayer让您可以在所有主要的桌面和移动端浏览器上播放mp4，m3u8格式的点播视频和rtmp、hls、http-flv协议的直播视频</p>
 <div class="video-container">
     <!--two choices for style:  vjs-default-skin or vjs-sublime-skin-->
-    <video id=example-video  class="video-js mobile-first-skin" controls preload="auto" width="360" height="640">
-        <source src="https://vjs.zencdn.net/v/oceans.mp4"
+    <video id=example-video  class="video-js mobile-first-skin" controls preload="auto" width="360" height="640" crossorigin="anonymous">
+        <source src="http://staticresource.console.ksyun.com/kmc/video/fangdou_720p.mp4"
                 type="video/mp4">
     </video>
 </div>
 <div class="control-bar">
     <input id="video-url" placeholder="输入视频URL"> <button id="change-video">加载</button>
 </div>
-
+<div><img id="snapshot" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="/></div>
 
 <script src="js/ksplayer.min.js"></script>
 
@@ -107,6 +111,8 @@
 //        "playbackRates": [1, 1.5, 2]
     });
 
+    //视频截图插件初始化(设置img标签DOM节点的Id)，只对H5播放有效
+    player.Snapshot({imgDOMId: 'snapshot'});
 
     player.ready(function() {
         setTimeout(function() {
@@ -163,6 +169,11 @@
 
     player.on("playing",function(event, data) {
         console.log(event);
+
+        //截图
+       /* setTimeout(function() {
+            player.snapshot();
+        },2000);*/
     });
 
     player.on("seeked",function(event, data) {
