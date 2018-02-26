@@ -81,3 +81,7 @@ player.on("pause",function(event, data) {
 ### timeupdate
 
 视频播放时每隔一段时间(约250ms，因浏览器而异)触发一次，视频暂停播放时不触发。
+
+### handleFullscreenChange
+
+播放器全屏状态改变时触发
