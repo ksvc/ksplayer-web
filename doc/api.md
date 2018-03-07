@@ -117,7 +117,7 @@ var howMuchIsDownloaded = player.bufferedPercent();
 ```
 
 ### bufferTimeMax( [seconds] )
-获取或设置最大缓冲时长（单位为秒）
+获取或设置最大缓冲时长（单位为秒），只适用于rtmp和http-flv协议
 
 |参数名 |类型|是否必须|描述|
 |---|---|---|---|
