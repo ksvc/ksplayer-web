@@ -14,8 +14,8 @@
 ## 微信分享页面在Android上播放器控制栏被原生控件替代如何解决?
 
 Android上微信使用的是自带的渲染引擎 TBS。新版的TBS 内核（>=036849）
-支持一个叫 同层播放器 的视频播放器。只需给 video 设置两个属性 `x5-video-player-type="h5"`
-和 `x5-video-player-fullscreen="true"`
+支持一个叫 同层播放器 的视频播放器。只需给 video标签 设置两个属性 `x5-video-player-type="h5"`
+和 `x5-video-player-fullscreen="true"`,然后监听play和pause事件对进入同层播放和退出同层播放进行相应的播放器大小的调整，demo详见：https://ks3-cn-beijing.ksyun.com/ksplayer/nemoh5/sameLayerPlay/zhibo/live.html
 
 ## 如何让视频居中宽度自适应全屏播放?
 
